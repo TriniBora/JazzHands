@@ -1,6 +1,10 @@
 {% include 'headerGestion.html' %}
 <br>
 <h2>Gestión de Servicios</h2>
+
+<a href="{{url_for('create')}}" class="btn btn-secondary">
+Ingresar nuevo servicio
+</a>
 <br>
 <br>
 <div class="table-responsive">
@@ -14,6 +18,7 @@
                 <th scope="col">Proceso</th>
                 <th scope="col">Duración</th>
                 <th scope="col">Precio</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>

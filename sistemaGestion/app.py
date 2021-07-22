@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import send_from_directory
-from flask import render_template#, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, session, g
 from flaskext.mysql import MySQL
 from datetime import datetime
 import os
@@ -67,10 +67,54 @@ def gestion():
      return render_template('servicios/gestion.html', servicios=servicios)
 
 
-@app.route('/login')
+@app.route('/login', methods=['POST'])
 def login():
      '''En esta página el administrador se loguea para poder ingresar al sistema de gestión'''
+     _username = request.form['username']
+     _password = request.form['password']
+
+     datos_formulario = (_username, _password)
+
+     conn = mysql.connect()
+     cursor = mysql.conn.cursor()
+     sql = "SELECT `username`, `password` FROM `jazz`.`usuarios` WHERE username =% AND password=%s;"
+     cursor.execute(sql, datos_formulario)
+     datos_bd = cursor.fetchall()
+
+     if len(datos_bd)==1:
+          return render_template('servicios/gestion.html')
+     else:
+          return redirect('/login')
+          #Conexion con la bd y crecaion del cursor
+
      return render_template('servicios/login.html')
+
+
+
+     '''if request.method == 'POST':
+
+          #Obtener los campos del formulario
+          _username = request.form['username']
+          _password_candidate = request.form['password']
+
+          #Conexion con la bd y crecaion del cursor
+          sql = "SELECT * FROM `jazz`.`usuarios` WHERE username =%;"
+          conn = mysql.connect()
+          cursor = mysql.conn.cursor()
+
+          #Obtener el usuario desde la bd
+          result = cursor.execute(sql, _username)
+
+          if result > 0:
+               #Obtenemos el password guardado en la bd
+               data = cursor.fetchone()
+               password = data['password']
+
+               #Comparamos los password'''
+
+
+
+
 
 
 if __name__=='__main__':

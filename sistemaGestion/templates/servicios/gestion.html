@@ -1,45 +1,40 @@
-{% include 'header.html' %}
-
-<<<<<<< HEAD
+{% include 'headerGestion.html' %}
 <br>
-<a href="{{url_for('create')}}" class="btn btn-secondary">
-    Ingresar nuevo servicio
-</a>
+<h2>Gestión de Servicios</h2>
 <br>
 <br>
-=======
->>>>>>> trinidad
+<div class="table-responsive">
+    <table class="table table-hover table-danger">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Foto</th>
+                <th scope="col">Spa</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Proceso</th>
+                <th scope="col">Duración</th>
+                <th scope="col">Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for servicio in servicios %}
+            <tr>
+                <th scope="row">{{servicio[0]}}</th>
+                <td>{{servicio[6]}}</td>
+                <td>{{servicio[1]}}</td>
+                <td>{{servicio[2]}}</td>
+                <td>{{servicio[3]}}</td>
+                <td>{{servicio[4]}}</td>
+                <td>{{servicio[5]}}</td>
+                <td>
+                    <a class="btn btn-secondary -sm" href="/edit/{{servicio[0]}}">Editar</a> |
+                    <a class="btn btn-secondary -sm" onclick="return confirm('¿Desea borrar el servicio?')" href="/destroy/{{servicio[0]}}">Eliminar</a>
+                </td>
 
-<table class="table table-hover table-danger">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Foto</th>
-            <th scope="col">Spa</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Proceso</th>
-            <th scope="col">Duración</th>
-            <th scope="col">Precio</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for servicio in servicios %}
-        <tr>
-            <th scope="row">{{servicio[0]}}</th>
-            <td>{{servicio[6]}}</td>
-            <td>{{servicio[1]}}</td>
-            <td>{{servicio[2]}}</td>
-            <td>{{servicio[3]}}</td>
-            <td>{{servicio[4]}}</td>
-            <td>{{servicio[5]}}</td>
-            <td>
-                <a class="btn btn-secondary -sm" href="/edit/{{servicio[0]}}">Editar</a> |
-                <a class="btn btn-secondary -sm" onclick="return confirm('¿Desea borrar al empleado?')" href="/destroy/{{servicio[0]}}">Eliminar</a>
-            </td>
-
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 {% include 'footer.html' %}

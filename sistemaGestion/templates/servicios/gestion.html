@@ -29,7 +29,11 @@
             <td>{{servicio[3]}}</td>
             <td>{{servicio[4]}}</td>
             <td>{{servicio[5]}}</td>
-            <td>Editar | Eliminar</td>
+            <td>
+                <a class="btn btn-secondary -sm" href="/edit/{{servicio[0]}}">Editar</a> |
+                <a class="btn btn-secondary -sm" onclick="return confirm('¿Desea borrar al empleado?')" href="/destroy/{{servicio[0]}}">Eliminar</a>
+            </td>
+
         </tr>
         {% endfor %}
     </tbody>

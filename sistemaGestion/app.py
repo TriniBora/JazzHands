@@ -5,9 +5,13 @@ from flaskext.mysql import MySQL
 from datetime import datetime
 import os
 
+
 app = Flask(__name__)
 
 mysql = MySQL()
+
+CARPETA= os.path.join('uploads')
+app.config['CARPETA']=CARPETA
 
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -72,10 +76,29 @@ def create():
     return render_template('servicios/create.html')
 
 
-@app.route('/login')
+@app.route('/login', methods=['POST', 'GET'])
 def login():
      '''En esta página el administrador se loguea para poder ingresar al sistema de gestión'''
+     '''Funciona con username='admin' y password=admin' '''
+
+     if request.method=='POST':
+          _username = request.form['username']
+          _password = request.form['password']
+          datos = (_username, _password)
+          conn = mysql.connect()
+          cursor = conn.cursor()
+          sql = "SELECT `username`, `password` FROM `jazz`.`usuarios` WHERE `username` =%s AND `password`=%s;"
+          cursor.execute(sql, datos)
+          users = cursor.fetchall()
+          if len(users) == 1:
+               return redirect(url_for('gestion'))
+          else:
+               return redirect(url_for('login'))
+
      return render_template('servicios/login.html')
+
+
+
 
 
 if __name__=='__main__':

@@ -3,9 +3,9 @@
 <main class="contenedor-nbl">
     <h1>¡Elegí lo que quieras para tus uñas!</h1>
     <div class="nbl nbl-subtitle">
+        {% for servicio in servicios_nails %}
         <div>
             <div class="servicio">
-                {% for servicio in servicios_nails %}
                 <div class="title">
                     <h2 class="">{{servicio[2]}}</h2>
                 </div>
@@ -13,9 +13,9 @@
                 <div>Tiempo aproximado: {{servicio[3]}}</div>
                 <div>Duración aproximada: {{servicio[4]}}</div>
                 <div>Precio: $ {{servicio[5]}}</div>
-                {% endfor %}
             </div>
         </div>
+        {% endfor %}
     </div>
 </main>
 

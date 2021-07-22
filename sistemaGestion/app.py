@@ -87,7 +87,7 @@ def login():
           datos = (_username, _password)
           conn = mysql.connect()
           cursor = conn.cursor()
-          sql = "SELECT `username`, `password` FROM `jazz`.`usuarios` WHERE `username` =%s AND `password`=%s;"
+          sql = "SELECT * FROM `jazz`.`usuarios` WHERE `username` =%s AND `password`=%s;"
           cursor.execute(sql, datos)
           users = cursor.fetchall()
           if len(users) == 1:

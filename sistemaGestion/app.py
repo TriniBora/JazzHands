@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import send_from_directory
-from flask import render_template#, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash
 from flaskext.mysql import MySQL
 from datetime import datetime
 import os
@@ -55,7 +55,7 @@ def faq():
      return render_template('servicios/faq.html')
 
 
-@app.route('/gestion', methods=['POST'])
+@app.route('/gestion', methods=['POST', 'GET'])
 def gestion():
      '''Desde acá se pueden crear y editar servicios'''
      sql = "SELECT * FROM `jazz` . `servicios`;"
@@ -65,6 +65,11 @@ def gestion():
      servicios = cursor.fetchall()
      conn.commit()
      return render_template('servicios/gestion.html', servicios=servicios)
+
+
+@app.route('/create')                # para el ruteo de create.html
+def create():
+    return render_template('servicios/create.html')
 
 
 @app.route('/login')

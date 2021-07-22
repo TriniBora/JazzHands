@@ -97,7 +97,16 @@ def login():
 
      return render_template('servicios/login.html')
 
-
+@app.route('/destroy/<identificador>')
+def destroy(identificador):
+     '''Esta ruta se encarga de eliminar servicios'''
+     datos = (identificador)
+     conn = mysql.connect()
+     cursor = conn.cursor()
+     sql = "DELETE FROM `jazz` . `servicios` WHERE `id` =%s"
+     cursor.execute(sql, datos)
+     conn.commit()
+     return redirect(url_for('gestion'))
 
 
 

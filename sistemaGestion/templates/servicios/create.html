@@ -1,4 +1,4 @@
-{% include 'header.html' %}
+{% include 'headerGestion.html' %}
 <b-card-header>
     Ingresar nuevo servicio
 </b-card-header>
@@ -6,7 +6,7 @@
 <form method="post" action="/store" enctype="multipart/form-data">
     <br>
     <div class="form-group">
-        <label for="txtId">Codigo:</label>
+        <label for="txtId">Código:</label>
         <input id="txtId" class="formcontrol" type="text" name="txtId">
     </div>
     <br>
@@ -43,8 +43,8 @@
     <br>
     <br>
     <div class="form-group">
-        <input type="submit" class="servicioBoton btn-light btn-sm" value="Agregar">
-        <a href="{{url_for('gestion')}}" class="servicioBoton btn-light btn-sm">Regresar</a>
+        <input type="submit" class="btn btn-secondary btn-sm" value="Agregar">
+        <a href="{{url_for('gestion')}}" class="btn btn-secondary btn-sm">Regresar</a>
     </div>
     <br>
     <br> {% include 'footer.html' %}

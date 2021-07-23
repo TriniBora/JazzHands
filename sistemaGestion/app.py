@@ -135,13 +135,23 @@ def login():
 @app.route('/destroy/<identificador>')
 def destroy(identificador):
     '''Esta ruta se encarga de eliminar servicios'''
-    datos = (identificador)
+    datos = identificador
     conn = mysql.connect()
     cursor = conn.cursor()
     sql = "DELETE FROM `jazz` . `servicios` WHERE `id` =%s"
+
+    cursor.execute("SELECT foto FROM `jazz` . `servicios` WHERE id=%s", datos)
+    fila = cursor.fetchall()
+    os.remove(os.path.join(app.config['CARPETA'], fila[0][0]))
+
     cursor.execute(sql, datos)
     conn.commit()
     return redirect(url_for('gestion'))
+
+@app.route('/uploads/<nombreFoto>')
+def uploads(nombreFoto):
+     '''Se muestra en el html la foto asociada al servicio'''
+     return send_from_directory(app.config['CARPETA'], nombreFoto)
 
 
 if __name__ == '__main__':

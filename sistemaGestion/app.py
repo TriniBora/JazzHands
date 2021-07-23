@@ -76,6 +76,34 @@ def create():
     return render_template('servicios/create.html')
 
 
+@app.route('/store',  methods=['POST'])     # cuando el formulario de create.hmtl hace el submit envia los datos a la pagina  /store
+def  storage():                             
+     _id=request.form['txtId']       # toma los datos que envio el formulario en txtNombre
+     _spa=request.form['txtSpa']    # toma los datos del formulario
+     _nombre=request.form['txtNombre']
+     _proceso=request.form['txtProceso']
+     _duracion=request.form['txtDuracion']
+     _precio=request.form['txtPrecio']
+     _foto=request.files['txtFoto']       # toma los datos del
+
+     now=datetime.now()
+     tiempo=now.strftime("%Y%H%M%S")
+
+     if _foto.filename !='':
+          nuevoNombreFoto=tiempo+_foto.filename   
+          _foto.save("uploads/"+nuevoNombreFoto)
+
+          sql="INSERT INTO `jazz`.`servicios` (`id`,`spa`,`nombre`,`proceso`,`duracion`,`precio`,`foto`) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+          datos=(_id,_spa,_nombre,_proceso,_duracion,_precio,nuevoNombreFoto)  # crea la sentencia sql
+          conn=mysql.connect()
+          cursor=conn.cursor()
+          conn.commit()
+
+     cursor.execute(sql,datos)               # ejecuta la sentencia sql 
+     conn.commit()
+     return redirect('/') #Regresamos de donde vinimos
+
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
      '''En esta página el administrador se loguea para poder ingresar al sistema de gestión'''

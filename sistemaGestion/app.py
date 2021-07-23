@@ -64,7 +64,7 @@ def faq():
 
 @app.route('/gestion', methods=['POST', 'GET'])
 def gestion():
-    '''Desde acá se pueden crear y editar servicios'''
+    '''Desde acá se listan los servicios actuales y se pueden crear y editar servicios'''
     sql = "SELECT * FROM `jazz` . `servicios`;"
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -72,7 +72,6 @@ def gestion():
     servicios = cursor.fetchall()
     conn.commit()
     return render_template('servicios/gestion.html', servicios=servicios)
-
 
 @app.route('/create')
 def create():
@@ -123,6 +122,7 @@ def login():
         sql = "SELECT * FROM `jazz`.`usuarios` WHERE `username` =%s AND `password`=%s;"
         cursor.execute(sql, datos)
         users = cursor.fetchall()
+        username = users[0][1]
         #Si trae una coincidencia, redirecciona a Gestión, sino queda en login hastq ue ingrese username y password correctos
         if len(users) == 1:
             return redirect(url_for('gestion'))

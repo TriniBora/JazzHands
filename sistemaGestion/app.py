@@ -82,7 +82,7 @@ def create():
 @app.route('/store',  methods=['POST'])
 def storage():
     '''Guarda los datos cargados en el formulario cuando se crea un servicio nuevo'''
-    _id = request.form['txtId']
+    #_id = request.form['txtId']
     _spa = request.form['txtSpa']
     _nombre = request.form['txtNombre']
     _proceso = request.form['txtProceso']
@@ -98,8 +98,8 @@ def storage():
         nuevoNombreFoto = tiempo + _foto.filename
         _foto.save("uploads/" + nuevoNombreFoto)
 
-        sql = "INSERT INTO `jazz`.`servicios` (`id`,`spa`,`nombre`,`proceso`,`duracion`,`precio`,`foto`) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-        datos = (_id, _spa, _nombre, _proceso, _duracion, _precio, nuevoNombreFoto)
+        sql = "INSERT INTO `jazz`.`servicios` (`id`,`spa`,`nombre`,`proceso`,`duracion`,`precio`,`foto`) VALUES (NULL,%s,%s,%s,%s,%s,%s)"
+        datos = (_spa, _nombre, _proceso, _duracion, _precio, nuevoNombreFoto)
         conn = mysql.connect()
         cursor = conn.cursor()
         conn.commit()

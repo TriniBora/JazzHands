@@ -73,6 +73,7 @@ def gestion():
     conn.commit()
     return render_template('servicios/gestion.html', servicios=servicios)
 
+
 @app.route('/create')
 def create():
     return render_template('servicios/create.html')
@@ -88,20 +89,20 @@ def storage():
     _precio = request.form['txtPrecio']
     _foto = request.files['txtFoto']
 
-    #Validación de los datos traídos del formulario
-    if _spa == '' or  _spa.isspace()==True or _spa.isdigit()==True:
+    # Validación de los datos traídos del formulario
+    if _spa == '' or _spa.isspace() == True or _spa.isdigit() == True or _spa.isalpha() == False:
         return redirect('/create')
-    if _nombre == '' or  _nombre.isspace()==True:
+    if _nombre == '' or _nombre.isspace() == True:
         return redirect('/create')
-    if _tiempo == '' or  _tiempo.isspace()==True:
+    if _tiempo == '' or _tiempo.isspace() == True:
         return redirect('/create')
-    if len(_precio) == 0 or  _precio.isdigit()==False:
+    if len(_precio) == 0 or _precio.isdigit() == False:
         return redirect('/create')
 
     now = datetime.now()
     tiempo = now.strftime("%Y%H%M%S")
 
-     #Si hay una foto cargada, se le modifica el nombre
+     # Si hay una foto cargada, se le modifica el nombre
     if _foto.filename != '':
         nuevoNombreFoto = tiempo + _foto.filename
         _foto.save("uploads/" + nuevoNombreFoto)
@@ -132,7 +133,7 @@ def login():
         cursor.execute(sql, datos)
         users = cursor.fetchall()
         username = users[0][1]
-        #Si trae una coincidencia, redirecciona a Gestión, sino queda en login hastq ue ingrese username y password correctos
+        # Si trae una coincidencia, redirecciona a Gestión, sino queda en login hastq ue ingrese username y password correctos
         if len(users) == 1:
             return redirect(url_for('gestion'))
         else:
@@ -147,7 +148,7 @@ def destroy(identificador):
     datos = identificador
     conn = mysql.connect()
     cursor = conn.cursor()
-    sql = "DELETE FROM `jazz` . `servicios` WHERE `id` =%s"
+    sql = "DELETE FROM `jazz` . `servicios` WHERE `id` =%s;"
 
     cursor.execute("SELECT foto FROM `jazz` . `servicios` WHERE id=%s", datos)
     fila = cursor.fetchall()
@@ -156,6 +157,53 @@ def destroy(identificador):
     cursor.execute(sql, datos)
     conn.commit()
     return redirect(url_for('gestion'))
+
+
+@app.route('/edit/<int:id>')
+def edit(id):
+    sql = "SELECT * FROM `jazz` . `servicios` WHERE `id` =%s;"
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute(sql, (id))
+    servicios = cursor.fetchall()
+    conn.commit()
+    return render_template('servicios/edit.html', servicios=servicios)
+
+
+@app.route('/update', methods=['POST'])
+def update():
+
+    _spa = request.form['txtSpa']
+    _nombre = request.form['txtNombre']
+    _tiempo = request.form['txtTiempo']
+    _duracion = request.form['txtDuracion']
+    _precio = request.form['txtPrecio']
+    _foto = request.files['txtFoto']
+    id = request.form['txtID']
+
+    sql = "UPDATE `jazz`.`servicios` SET `spa`=%s, `nombre`=%s, `proceso`=%s, `duracion`=%s, `precio`=%s WHERE `id`=%s;"
+    datos = (_spa, _nombre, _tiempo, _duracion, _precio, id)
+
+    conn = mysql.connect()
+    cursor = conn.cursor()
+
+    now = datetime.now()
+    tiempo = now.strftime("%Y%H%M%S")
+
+    if _foto.filename != '':
+        nuevoNombreFoto = tiempo + _foto.filename
+        _foto.save("uploads/" + nuevoNombreFoto)
+
+        cursor.execute("SELECT foto FROM `jazz` . `servicios` WHERE id=%s", datos)
+        fila = cursor.fetchall()
+        os.remove(os.path.join(app.config['CARPETA'], fila[0][0]))
+        cursor.execute("UPDATE `jazz`.`servicios` SET `foto`=%s WHERE id=%s;", (nuevoNombreFoto, id))
+        conn.commit()
+
+    cursor.execute(sql, datos)
+    conn.commit()
+    return redirect('/gestion')
+
 
 @app.route('/uploads/<nombreFoto>')
 def uploads(nombreFoto):

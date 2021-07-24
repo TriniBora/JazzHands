@@ -90,8 +90,8 @@ def storage():
     _foto = request.files['txtFoto']
 
     # Validación de los datos traídos del formulario
-    if _spa == '' or _spa.isspace() == True or _spa.isdigit() == True or _spa.isalpha() == False:
-        return redirect('/create')
+    #if _spa == '' or _spa.isspace() == True or _spa.isdigit() == True or _spa.isalpha() == False:
+     #   return redirect('/create')
     if _nombre == '' or _nombre.isspace() == True:
         return redirect('/create')
     if _tiempo == '' or _tiempo.isspace() == True:

@@ -5,8 +5,8 @@ function validarFormulario() {
     let txtTiempo = document.getElementById("txtTiempo").value;
     let txtPrecio = document.getElementById("txtPrecio").value;
 
-    if (txtSpa == null || txtSpa.length == 0 || /^\s+$/.test(txtSpa) || !isNaN(txtSpa) || /\d+/g.test(txtSpa))
-        alert('ERROR: El campo "Spa" no debe ir vacío, lleno de solamente espacios en blanco ni debe contener números');
+    /*if (txtSpa == null || txtSpa.length == 0 || /^\s+$/.test(txtSpa) || !isNaN(txtSpa) || /\d+/g.test(txtSpa))
+        alert('ERROR: El campo "Spa" no debe ir vacío, lleno de solamente espacios en blanco ni debe contener números');*/
     if (txtNombre == null || txtNombre.length == 0 || /^\s+$/.test(txtNombre))
         alert('ERROR: El campo "Servicio" no debe ir vacío o lleno de solamente espacios en blanco');
     if (txtTiempo == null || txtTiempo.length == 0 || /^\s+$/.test(txtTiempo))

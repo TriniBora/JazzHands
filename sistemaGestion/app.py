@@ -81,13 +81,22 @@ def create():
 @app.route('/store',  methods=['POST'])
 def storage():
     '''Guarda los datos cargados en el formulario cuando se crea un servicio nuevo'''
-    #_id = request.form['txtId']
     _spa = request.form['txtSpa']
     _nombre = request.form['txtNombre']
-    _proceso = request.form['txtProceso']
+    _tiempo = request.form['txtTiempo']
     _duracion = request.form['txtDuracion']
     _precio = request.form['txtPrecio']
     _foto = request.files['txtFoto']
+
+    #Validación de los datos traídos del formulario
+    if _spa == '' or  _spa.isspace()==True or _spa.isdigit()==True:
+        return redirect('/create')
+    if _nombre == '' or  _nombre.isspace()==True:
+        return redirect('/create')
+    if _tiempo == '' or  _tiempo.isspace()==True:
+        return redirect('/create')
+    if len(_precio) == 0 or  _precio.isdigit()==False:
+        return redirect('/create')
 
     now = datetime.now()
     tiempo = now.strftime("%Y%H%M%S")
@@ -98,7 +107,7 @@ def storage():
         _foto.save("uploads/" + nuevoNombreFoto)
 
         sql = "INSERT INTO `jazz`.`servicios` (`id`,`spa`,`nombre`,`proceso`,`duracion`,`precio`,`foto`) VALUES (NULL,%s,%s,%s,%s,%s,%s)"
-        datos = (_spa, _nombre, _proceso, _duracion, _precio, nuevoNombreFoto)
+        datos = (_spa, _nombre, _tiempo, _duracion, _precio, nuevoNombreFoto)
         conn = mysql.connect()
         cursor = conn.cursor()
         conn.commit()

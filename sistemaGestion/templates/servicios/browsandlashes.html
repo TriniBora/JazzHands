@@ -12,7 +12,9 @@
                 </div>
                 <img class="thumbnail" width="300" height="300" src="uploads/{{servicio[6]}}" alt="{{servicio[2]}}">
                 <div>Tiempo aproximado: {{servicio[3]}}</div>
+                {% if servicio[4]!='' %}
                 <div>Duración aproximada: {{servicio[4]}}</div>
+                {% endif %}
                 <div>Precio: $ {{servicio[5]}}</div>
             </div>
         </div>

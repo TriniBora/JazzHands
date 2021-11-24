@@ -4,7 +4,7 @@ Web de servicios de manicuria y otros
 Final, collaborative project of Codo a Codo Full-stack Python.
 Includes connection to bd to persist data services.
 
-##Technologies
+## Technologies
 - HTML 5
 - CSS 3
 - JavaScript
@@ -13,7 +13,7 @@ Includes connection to bd to persist data services.
 - Flask
 - MyQSL
 
-##Website
+## Website
 https://jazz-hands.herokuapp.com/login
 
 To fully view the site, contact me and I give you a demo.

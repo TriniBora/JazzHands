@@ -18,3 +18,9 @@ Includes connection to bd to persist data services.
 https://jazz-hands.herokuapp.com/login
 
 To fully view the app, contact me and I give you a demo.
+
+### Main branch
+Static original site
+
+### Develop branch
+Dynamic site

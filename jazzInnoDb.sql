@@ -72,13 +72,6 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id_usuario`, `username`, `password`) VALUES
-(1, 'admin', 'admin');
-
---
 -- Índices para tablas volcadas
 --
 

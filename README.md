@@ -1,5 +1,6 @@
 # JazzHands
-Web de servicios de manicuria y otros
+
+Manicure and other services website
 
 Final, collaborative project of Codo a Codo Full-stack Python.
 Includes connection to bd to persist data services.
